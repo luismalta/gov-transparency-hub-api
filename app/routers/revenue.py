@@ -12,7 +12,7 @@ router = APIRouter(
 
 
 @router.get("/")
-def get_expense_by_date(
+def get_revenue(
     municipio: str,
     data: datetime = None,
     codigo_receita: str = None,

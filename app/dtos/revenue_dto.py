@@ -10,6 +10,6 @@ class RevenueResponseDto(BaseModel):
     fonte_recurso: str
     co_tce: str
     co_aux: str
-    historico: str
+    historico: str | None
     valor: float
     municipio: str
