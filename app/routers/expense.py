@@ -1,5 +1,6 @@
-from fastapi import APIRouter
-from app.dtos.expense_dto import ExpenseDetailsResponseDto, ExpenseItemResponseDto, ExpenseInvoiceResponseDto
+from fastapi import APIRouter, Query
+from typing import Annotated
+from app.dtos.expense_dto import ExpenseDetailsResponseDto, ExpenseItemResponseDto, ExpenseInvoiceResponseDto, ExpenseDetailsFilterParams, ExpenseItemFilterParams, ExpenseInvoiceFilterParams
 from app.repositories.expense_details import get_expense_details
 from app.repositories.expense_itens import get_expense_itens
 from app.repositories.expense_invoices import get_expense_invoices
@@ -13,28 +14,19 @@ router = APIRouter(
 
 @router.get("/details")
 def download_expense_details(
-    municipio: str,
+    filter_query: Annotated[ExpenseDetailsFilterParams, Query()]
 ) -> list[ExpenseDetailsResponseDto]:
-    data =  {
-        "municipio": municipio,
-    }
-    return get_expense_details(data)
+    return get_expense_details(filter_query.model_dump(mode='python'))
 
 
 @router.get("/itens")
 def download_expense_itens(
-    municipio: str,
+    filter_query: Annotated[ExpenseItemFilterParams, Query()]
 ) -> list[ExpenseItemResponseDto]:
-    data =  {
-        "municipio": municipio,
-    }
-    return get_expense_itens(data)
+    return get_expense_itens(filter_query.model_dump(mode='python'))
 
 @router.get("/invoices")
 def download_expense_invoices(
-    municipio: str,
+    filter_query: Annotated[ExpenseInvoiceFilterParams, Query()]
 ) -> list[ExpenseInvoiceResponseDto]:
-    data =  {
-        "municipio": municipio,
-    }
-    return get_expense_invoices(data)
+    return get_expense_invoices(filter_query.model_dump(mode='python'))

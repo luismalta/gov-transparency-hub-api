@@ -1,49 +1,103 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from datetime import datetime
+from . import constants
 
 class ExpenseDetailsResponseDto(BaseModel):
-    numero: str
-    ano: str
-    tipo: str
-    data_empenho: datetime
-    data_liquidacao: datetime | None 
-    data_pagamento: datetime | None
-    unidade: str
-    funcao: str
-    subfuncao: str
-    programa: str
-    atividade: str
-    categoria_economica: str
-    fonte_recurso: str
-    co_tce: str
-    co_aux: str
-    valor: float
-    beneficiario: str
-    cpf_cnpj: str
-    historico: str
-    municipio: str
+    numero: str = Field(description=constants.NUMERO_EMPENHO)
+    ano: str = Field(description=constants.ANO_DESPESA)
+    tipo: str = Field(description=constants.TIPO_DESPESA)
+    data_empenho: datetime = Field(description=constants.DATA_EMPENHO)
+    data_liquidacao: datetime | None  = Field(description=constants.DATA_LIQUIDACAO)
+    data_pagamento: datetime | None = Field(description=constants.DATA_PAGAMENTO)
+    unidade: str = Field(description=constants.UNIDADE)
+    funcao: str = Field(description=constants.FUNCAO)
+    subfuncao: str = Field(description=constants.SUBFUNCAO)
+    programa: str = Field(description=constants.PROGRAMA)
+    atividade: str = Field(description=constants.ATIVIDADE)
+    categoria_economica: str = Field(description=constants.CATEGORIA_ECONOMICA)
+    fonte_recurso: str = Field(description=constants.FONTE_RECURSO)
+    co_tce: str = Field(description=constants.CO_TCE)
+    co_aux: str = Field(description=constants.CO_AUX)
+    valor: float = Field(description=constants.VALOR_DESPESA)
+    beneficiario: str = Field(description=constants.BENEFICIARIO)
+    cpf_cnpj: str = Field(description=constants.CPF_CNPJ)
+    historico: str = Field(description=constants.HISTORICO_DESPESA)
+    municipio: str = Field(description=constants.MUNICIPIO_DESPESA)
 
 class ExpenseItemResponseDto(BaseModel):
-    item: str
-    numero_despesa: str
-    ano_despesa: str
-    municipio: str
-    complemento: str | None
-    unidade: str
-    marca: str | None
-    quantidade: float
-    valor_unitario: float
-    valor_total: float
+    item: str = Field(description=constants.ITEM_DESPESA)
+    numero_despesa: str = Field(description=constants.NUMERO_DESPESA_ITEM)
+    ano_despesa: str = Field(description=constants.ANO_DESPESA)
+    municipio: str = Field(description=constants.MUNICIPIO_DESPESA)
+    complemento: str | None = Field(description=constants.COMPLEMENTO_ITEM_DESPESA)
+    unidade: str = Field(description=constants.UNIDADE_ITEM)
+    marca: str | None = Field(description=constants.MARCA_ITEM)
+    quantidade: float = Field(description=constants.QUANTIDADE_ITEM)
+    valor_unitario: float = Field(description=constants.VALOR_UNITARIO_ITEM)
+    valor_total: float = Field(description=constants.VALOR_TOTAL_ITEM)
 
 class ExpenseInvoiceResponseDto(BaseModel):
-    ano_despesa: str
-    numero_despesa: str
-    municipio: str
-    codigo: str
-    tipo: str
-    nota_fiscal: str
-    serie: str
-    data_emissao: datetime
-    data_vencimento: datetime
-    chave_acesso: str
-    
+    ano_despesa: str = Field(description=constants.ANO_DESPESA_NF)
+    numero_despesa: str = Field(description=constants.NUMERO_DESPESA_NF)
+    municipio: str = Field(description=constants.MUNICIPIO_NF)
+    codigo: str = Field(description=constants.CODIGO_NF)
+    tipo: str = Field(description=constants.TIPO_NF)
+    nota_fiscal: str = Field(description=constants.NOTA_FISCAL)
+    serie: str = Field(description=constants.SERIE_NF)
+    data_emissao: datetime = Field(description=constants.DATA_EMISSAO_NF)
+    data_vencimento: datetime = Field(description=constants.DATA_VENCIMENTO_NF)
+    chave_acesso: str = Field(description=constants.CHAVE_ACESSO_NF)
+
+
+class ExpenseDetailsFilterParams(BaseModel):
+    municipio: str = Field(None, description=constants.MUNICIPIO_DESPESA)
+    ano: str = Field(None, description=constants.ANO_DESPESA)
+    numero: str = Field(None, description=constants.NUMERO_EMPENHO)
+    tipo: str = Field(None, description=constants.TIPO_DESPESA)
+    data_empenho: datetime = Field(None, description=constants.DATA_EMPENHO)
+    data_liquidacao: datetime = Field(None, description=constants.DATA_LIQUIDACAO)
+    data_pagamento: datetime = Field(None, description=constants.DATA_PAGAMENTO)
+    unidade: str = Field(None, description=constants.UNIDADE)
+    funcao: str = Field(None, description=constants.FUNCAO)
+    subfuncao: str = Field(None, description=constants.SUBFUNCAO)
+    programa: str = Field(None, description=constants.PROGRAMA)
+    atividade: str = Field(None, description=constants.ATIVIDADE)
+    categoria_economica: str = Field(None, description=constants.CATEGORIA_ECONOMICA)
+    fonte_recurso: str = Field(None, description=constants.FONTE_RECURSO)
+    co_tce: str = Field(None, description=constants.CO_TCE)
+    co_aux: str = Field(None, description=constants.CO_AUX)
+    beneficiario: str = Field(None, description=constants.BENEFICIARIO)
+    cpf_cnpj: str = Field(None, description=constants.CPF_CNPJ)
+    historico: str = Field(None, description=constants.HISTORICO_DESPESA)
+    offset: int = Field(0, ge=0, le=100, description=constants.OFFSET)
+    limit: int = Field(100, le=100, description=constants.LIMIT)
+    sort_by: str = Field('data_emissao', description=constants.SORT_BY)
+    sort_order: str = Field('desc', description=constants.SORT_ORDER)
+
+
+class ExpenseItemFilterParams(BaseModel):
+    municipio: str = Field(None, description=constants.MUNICIPIO_DESPESA)
+    ano_despesa: str = Field(None, description=constants.ANO_DESPESA)
+    numero_despesa: str = Field(None, description=constants.NUMERO_DESPESA_ITEM)
+    item: str = Field(None, description=constants.ITEM_DESPESA)
+    offset: int = Field(0, ge=0, le=100, description=constants.OFFSET)
+    limit: int = Field(100, le=100, description=constants.LIMIT)
+    sort_by: str = Field('data_emissao', description=constants.SORT_BY)
+    sort_order: str = Field('desc', description=constants.SORT_ORDER)
+
+
+class ExpenseInvoiceFilterParams(BaseModel):
+    municipio: str = Field(None, description=constants.MUNICIPIO_NF)
+    ano_despesa: str = Field(None, description=constants.ANO_DESPESA_NF)
+    numero_despesa: str = Field(None, description=constants.NUMERO_DESPESA_NF)
+    codigo: str = Field(None, description=constants.CODIGO_NF)
+    tipo: str = Field(None, description=constants.TIPO_NF)
+    nota_fiscal: str = Field(None, description=constants.NOTA_FISCAL)
+    serie: str = Field(None, description=constants.SERIE_NF)
+    data_emissao: datetime = Field(None, description=constants.DATA_EMISSAO_NF)
+    data_vencimento: datetime = Field(None, description=constants.DATA_VENCIMENTO_NF)
+    chave_acesso: str = Field(None, description=constants.CHAVE_ACESSO_NF)
+    offset: int = Field(0, ge=0, le=100, description=constants.OFFSET)
+    limit: int = Field(100, le=100, description=constants.LIMIT)
+    sort_by: str = Field('data_emissao', description=constants.SORT_BY)
+    sort_order: str = Field('desc', description=constants.SORT_ORDER)

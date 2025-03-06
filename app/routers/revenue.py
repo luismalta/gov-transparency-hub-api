@@ -1,6 +1,6 @@
-from fastapi import APIRouter
-from datetime import datetime
-from app.dtos.revenue_dto import RevenueResponseDto
+from fastapi import APIRouter, Query
+from typing import Annotated
+from app.dtos.revenue_dto import RevenueResponseDto, RevenueFilterParams
 from app.repositories.revenue import get_revenue
 
 
@@ -12,16 +12,5 @@ router = APIRouter(
 
 
 @router.get("/")
-def get_revenue(
-    municipio: str,
-    data: datetime = None,
-    codigo_receita: str = None,
-    fonte_recurso: str = None
-) -> list[RevenueResponseDto]:
-    data =  {
-        "municipio": municipio,
-        "data": data,
-        "codigo_receita": codigo_receita,
-        "fonte_recurso": fonte_recurso
-    }
-    return get_revenue(data)
+def download_revenue(filter_query: Annotated[RevenueFilterParams, Query()]) -> list[RevenueResponseDto]:
+    return get_revenue(filter_query.model_dump(mode='python'))
