@@ -49,7 +49,5 @@ DATA_VENCIMENTO_NF = 'Data de vencimento da nota fiscal'
 CHAVE_ACESSO_NF = 'Chave de acesso da nota fiscal'
 
 
-OFFSET = 'Número de registros a serem ignorados'
-LIMIT = 'Número de registros a serem retornados'
-SORT_BY = 'Ordenar por campo'
-SORT_ORDER = 'Direção da ordenação'
+PAGE = 'Define qual página de dados você deseja acessar. A paginação é geralmente feita de forma sequencial, onde a primeira página contém o primeiro "bloco" de dados, a segunda página contém o segundo "bloco", e assim por diante.'
+PAGE_SIZE = 'Define o número de itens que você quer obter por página. Esse parâmetro controla quantos resultados serão retornados em cada "página" de dados.'

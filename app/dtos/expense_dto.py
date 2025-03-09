@@ -1,6 +1,6 @@
 from pydantic import BaseModel, Field
 from datetime import datetime
-from . import constants
+from . import constants, base
 
 class ExpenseDetailsResponseDto(BaseModel):
     numero: str = Field(description=constants.NUMERO_EMPENHO)
@@ -46,10 +46,10 @@ class ExpenseInvoiceResponseDto(BaseModel):
     serie: str = Field(description=constants.SERIE_NF)
     data_emissao: datetime = Field(description=constants.DATA_EMISSAO_NF)
     data_vencimento: datetime = Field(description=constants.DATA_VENCIMENTO_NF)
-    chave_acesso: str = Field(description=constants.CHAVE_ACESSO_NF)
+    chave_acesso: str | None = Field(description=constants.CHAVE_ACESSO_NF)
 
 
-class ExpenseDetailsFilterParams(BaseModel):
+class ExpenseDetailsFilterParams(base.BaseFilterParams):
     municipio: str = Field(None, description=constants.MUNICIPIO_DESPESA)
     ano: str = Field(None, description=constants.ANO_DESPESA)
     numero: str = Field(None, description=constants.NUMERO_EMPENHO)
@@ -69,24 +69,16 @@ class ExpenseDetailsFilterParams(BaseModel):
     beneficiario: str = Field(None, description=constants.BENEFICIARIO)
     cpf_cnpj: str = Field(None, description=constants.CPF_CNPJ)
     historico: str = Field(None, description=constants.HISTORICO_DESPESA)
-    offset: int = Field(0, ge=0, le=100, description=constants.OFFSET)
-    limit: int = Field(100, le=100, description=constants.LIMIT)
-    sort_by: str = Field('data_emissao', description=constants.SORT_BY)
-    sort_order: str = Field('desc', description=constants.SORT_ORDER)
 
 
-class ExpenseItemFilterParams(BaseModel):
+class ExpenseItemFilterParams(base.BaseFilterParams):
     municipio: str = Field(None, description=constants.MUNICIPIO_DESPESA)
     ano_despesa: str = Field(None, description=constants.ANO_DESPESA)
     numero_despesa: str = Field(None, description=constants.NUMERO_DESPESA_ITEM)
     item: str = Field(None, description=constants.ITEM_DESPESA)
-    offset: int = Field(0, ge=0, le=100, description=constants.OFFSET)
-    limit: int = Field(100, le=100, description=constants.LIMIT)
-    sort_by: str = Field('data_emissao', description=constants.SORT_BY)
-    sort_order: str = Field('desc', description=constants.SORT_ORDER)
 
 
-class ExpenseInvoiceFilterParams(BaseModel):
+class ExpenseInvoiceFilterParams(base.BaseFilterParams):
     municipio: str = Field(None, description=constants.MUNICIPIO_NF)
     ano_despesa: str = Field(None, description=constants.ANO_DESPESA_NF)
     numero_despesa: str = Field(None, description=constants.NUMERO_DESPESA_NF)
@@ -97,7 +89,3 @@ class ExpenseInvoiceFilterParams(BaseModel):
     data_emissao: datetime = Field(None, description=constants.DATA_EMISSAO_NF)
     data_vencimento: datetime = Field(None, description=constants.DATA_VENCIMENTO_NF)
     chave_acesso: str = Field(None, description=constants.CHAVE_ACESSO_NF)
-    offset: int = Field(0, ge=0, le=100, description=constants.OFFSET)
-    limit: int = Field(100, le=100, description=constants.LIMIT)
-    sort_by: str = Field('data_emissao', description=constants.SORT_BY)
-    sort_order: str = Field('desc', description=constants.SORT_ORDER)

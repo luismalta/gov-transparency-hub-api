@@ -1,6 +1,6 @@
 from pydantic import BaseModel, Field
 from datetime import datetime
-from . import constants
+from . import constants, base
 
 class RevenueResponseDto(BaseModel):
     id: str
@@ -15,12 +15,8 @@ class RevenueResponseDto(BaseModel):
     valor: float = Field(description=constants.VALOR)
     municipio: str = Field(description=constants.MUNICIPIO)
 
-class RevenueFilterParams(BaseModel):
+class RevenueFilterParams(base.BaseFilterParams):
     municipio: str = Field(None, description=constants.MUNICIPIO)
     data: datetime = Field(None, description=constants.DATA)
     codigo_receita: str = Field(None, description=constants.CODIGO_RECEITA)
     fonte_recurso: str = Field(None, description=constants.FONTE_RECURSO)
-    offset: int = Field(0, ge=0, le=100, description=constants.OFFSET)
-    limit: int = Field(100, le=100, description=constants.LIMIT)
-    sort_by: str = Field('data_emissao', description=constants.SORT_BY)
-    sort_order: str = Field('desc', description=constants.SORT_ORDER)

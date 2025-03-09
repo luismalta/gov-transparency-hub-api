@@ -1,4 +1,3 @@
-from datetime import datetime
 from app.db.db_models import RevenueDBModel
 from app.db.db_connection import Session
 
@@ -19,27 +18,16 @@ def _db_to_dto(revenue: RevenueDBModel) -> RevenueResponseDto:
         municipio=revenue.municipio
     )
 
-def get_revenue(filters: dict) -> list[RevenueResponseDto]:
-    if not filters:
-        raise ValueError("No filters provided")
-    
-    allowed_filters = ["municipio", "data", "codigo_receita", "fonte_recurso"]
-    parsed_filters = {}
-    for key in filters:
-        if key not in allowed_filters:
-            raise ValueError(f"Filter {key} not allowed")
-        
-        if key == "date" and filters[key]:
-            parsed_filters[key] = datetime.strptime(filters[key], "%Y-%m-%d")
-        elif filters[key]:
-            parsed_filters[key] = filters[key]
-
-
+def get_revenue(filters: dict, pagination_info: dict) -> list[RevenueResponseDto]:
     try:
-        revenue_data = Session.query(RevenueDBModel).filter_by(**parsed_filters).all()
+        revenue_query = Session.query(RevenueDBModel)\
+            .filter_by(**filters)\
+            .order_by(RevenueDBModel.data.desc(), RevenueDBModel.municipio)\
+            .limit(pagination_info["page_size"])\
+            .offset((pagination_info["page"]) * pagination_info["page_size"])
+        revenue_data = revenue_query.all()
     except Exception as e:
         raise e
-        # raise ValueError(f"Error retriving revenue data") from e
 
     if not revenue_data:
         return None
