@@ -13,7 +13,11 @@ router = APIRouter(
 
 
 @router.get("/")
-def download_revenue(filter_query: Annotated[RevenueFilterParams, Query()]) -> list[RevenueResponseDto]:
-    pagination_info, filters = _extract_pagination(filter_query.model_dump(mode='python'))
+def download_revenue(
+    filter_query: Annotated[RevenueFilterParams, Query()],
+) -> list[RevenueResponseDto]:
+    pagination_info, filters = _extract_pagination(
+        filter_query.model_dump(mode="python")
+    )
     parsed_filters = {k: v for k, v in filters.items() if v is not None}
     return get_revenue(parsed_filters, pagination_info)

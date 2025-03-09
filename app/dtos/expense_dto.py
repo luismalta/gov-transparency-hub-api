@@ -2,12 +2,13 @@ from pydantic import BaseModel, Field
 from datetime import datetime
 from . import constants, base
 
+
 class ExpenseDetailsResponseDto(BaseModel):
     numero: str = Field(description=constants.NUMERO_EMPENHO)
     ano: str = Field(description=constants.ANO_DESPESA)
     tipo: str = Field(description=constants.TIPO_DESPESA)
     data_empenho: datetime = Field(description=constants.DATA_EMPENHO)
-    data_liquidacao: datetime | None  = Field(description=constants.DATA_LIQUIDACAO)
+    data_liquidacao: datetime | None = Field(description=constants.DATA_LIQUIDACAO)
     data_pagamento: datetime | None = Field(description=constants.DATA_PAGAMENTO)
     unidade: str = Field(description=constants.UNIDADE)
     funcao: str = Field(description=constants.FUNCAO)
@@ -24,6 +25,7 @@ class ExpenseDetailsResponseDto(BaseModel):
     historico: str = Field(description=constants.HISTORICO_DESPESA)
     municipio: str = Field(description=constants.MUNICIPIO_DESPESA)
 
+
 class ExpenseItemResponseDto(BaseModel):
     item: str = Field(description=constants.ITEM_DESPESA)
     numero_despesa: str = Field(description=constants.NUMERO_DESPESA_ITEM)
@@ -35,6 +37,7 @@ class ExpenseItemResponseDto(BaseModel):
     quantidade: float = Field(description=constants.QUANTIDADE_ITEM)
     valor_unitario: float = Field(description=constants.VALOR_UNITARIO_ITEM)
     valor_total: float = Field(description=constants.VALOR_TOTAL_ITEM)
+
 
 class ExpenseInvoiceResponseDto(BaseModel):
     ano_despesa: str = Field(description=constants.ANO_DESPESA_NF)

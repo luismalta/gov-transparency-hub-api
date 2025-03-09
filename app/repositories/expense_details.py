@@ -1,8 +1,8 @@
-from datetime import datetime
 from app.db.db_models import ExpenseDetailDBModel
 from app.db.db_connection import Session
 
 from app.dtos.expense_dto import ExpenseDetailsResponseDto
+
 
 def _db_to_dto(expense_detail: ExpenseDetailDBModel) -> ExpenseDetailsResponseDto:
     return ExpenseDetailsResponseDto(
@@ -25,16 +25,23 @@ def _db_to_dto(expense_detail: ExpenseDetailDBModel) -> ExpenseDetailsResponseDt
         beneficiario=expense_detail.beneficiario,
         cpf_cnpj=expense_detail.cpf_cnpj,
         historico=expense_detail.historico,
-        municipio=expense_detail.municipio
+        municipio=expense_detail.municipio,
     )
 
-def get_expense_details(filters: dict, pagination_info: dict) -> list[ExpenseDetailsResponseDto]:
+
+def get_expense_details(
+    filters: dict, pagination_info: dict
+) -> list[ExpenseDetailsResponseDto]:
     try:
-        expense_detail_query = Session.query(ExpenseDetailDBModel)\
-            .filter_by(**filters)\
-            .order_by(ExpenseDetailDBModel.data_empenho.desc(), ExpenseDetailDBModel.municipio)\
-            .limit(pagination_info["page_size"])\
+        expense_detail_query = (
+            Session.query(ExpenseDetailDBModel)
+            .filter_by(**filters)
+            .order_by(
+                ExpenseDetailDBModel.data_empenho.desc(), ExpenseDetailDBModel.municipio
+            )
+            .limit(pagination_info["page_size"])
             .offset((pagination_info["page"]) * pagination_info["page_size"])
+        )
         expense_detail_data = expense_detail_query.all()
     except Exception as e:
         raise e
@@ -43,4 +50,3 @@ def get_expense_details(filters: dict, pagination_info: dict) -> list[ExpenseDet
         return None
 
     return [_db_to_dto(expense_detail) for expense_detail in expense_detail_data]
-

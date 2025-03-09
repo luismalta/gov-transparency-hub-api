@@ -3,11 +3,13 @@ from sqlalchemy import String, Float, DateTime, Integer
 from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy.orm import Mapped, mapped_column
 
+
 class Base(DeclarativeBase):
     pass
 
+
 class RevenueDBModel(Base):
-    __tablename__ = 'revenue_details'
+    __tablename__ = "revenue_details"
 
     id: Mapped[str] = mapped_column(String, primary_key=True)
     data: Mapped[datetime] = mapped_column(DateTime)
@@ -21,8 +23,9 @@ class RevenueDBModel(Base):
     valor: Mapped[float] = mapped_column(Float)
     municipio: Mapped[str] = mapped_column(String)
 
+
 class ExpenseDetailDBModel(Base):
-    __tablename__ = 'expense_details'
+    __tablename__ = "expense_details"
 
     numero: Mapped[str] = mapped_column(String, primary_key=True)
     ano: Mapped[int] = mapped_column(Integer, primary_key=True)
@@ -47,7 +50,7 @@ class ExpenseDetailDBModel(Base):
 
 
 class ExpenseItemDBModel(Base):
-    __tablename__ = 'expense_itens'
+    __tablename__ = "expense_itens"
 
     item: Mapped[str] = mapped_column(String, primary_key=True)
     numero_despesa: Mapped[str] = mapped_column(String, primary_key=True)
@@ -60,8 +63,9 @@ class ExpenseItemDBModel(Base):
     valor_unitario: Mapped[float] = mapped_column(Float)
     total: Mapped[float] = mapped_column(Float)
 
-class ExpenseInvoiceDBModel (Base):
-    __tablename__ = 'expense_invoices'
+
+class ExpenseInvoiceDBModel(Base):
+    __tablename__ = "expense_invoices"
 
     ano_despesa: Mapped[int] = mapped_column(Integer, primary_key=True)
     numero_despesa: Mapped[str] = mapped_column(String, primary_key=True)
@@ -73,4 +77,3 @@ class ExpenseInvoiceDBModel (Base):
     data_emissao: Mapped[datetime] = mapped_column(DateTime)
     data_vencimento: Mapped[datetime] = mapped_column(DateTime)
     chave_acesso: Mapped[str] = mapped_column(String)
-

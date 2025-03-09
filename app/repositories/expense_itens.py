@@ -15,16 +15,23 @@ def _db_to_dto(expense_detail: ExpenseItemDBModel) -> ExpenseItemResponseDto:
         marca=expense_detail.marca,
         quantidade=expense_detail.quantidade,
         valor_unitario=expense_detail.valor_unitario,
-        valor_total=expense_detail.total
+        valor_total=expense_detail.total,
     )
 
-def get_expense_itens(filters: dict, pagination_info: dict) -> list[ExpenseItemResponseDto]:
+
+def get_expense_itens(
+    filters: dict, pagination_info: dict
+) -> list[ExpenseItemResponseDto]:
     try:
-        expense_itens_query = Session.query(ExpenseItemDBModel)\
-            .filter_by(**filters)\
-            .order_by(ExpenseItemDBModel.numero_despesa.desc(), ExpenseItemDBModel.municipio)\
-            .limit(pagination_info["page_size"])\
+        expense_itens_query = (
+            Session.query(ExpenseItemDBModel)
+            .filter_by(**filters)
+            .order_by(
+                ExpenseItemDBModel.numero_despesa.desc(), ExpenseItemDBModel.municipio
+            )
+            .limit(pagination_info["page_size"])
             .offset((pagination_info["page"]) * pagination_info["page_size"])
+        )
         expense_itens_data = expense_itens_query.all()
     except Exception as e:
         raise e
@@ -33,4 +40,3 @@ def get_expense_itens(filters: dict, pagination_info: dict) -> list[ExpenseItemR
         return None
 
     return [_db_to_dto(expense_item) for expense_item in expense_itens_data]
-

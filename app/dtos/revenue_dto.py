@@ -2,6 +2,7 @@ from pydantic import BaseModel, Field
 from datetime import datetime
 from . import constants, base
 
+
 class RevenueResponseDto(BaseModel):
     id: str
     data: datetime = Field(description=constants.DATA)
@@ -14,6 +15,7 @@ class RevenueResponseDto(BaseModel):
     historico: str | None = Field(description=constants.HISTORICO)
     valor: float = Field(description=constants.VALOR)
     municipio: str = Field(description=constants.MUNICIPIO)
+
 
 class RevenueFilterParams(base.BaseFilterParams):
     municipio: str = Field(None, description=constants.MUNICIPIO)
