@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gov Transparency Hub</title>
+    <style>
+        body { font-family: 'Arial', sans-serif; margin: 0; padding: 0; background: #eef2f7; color: #333; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 20px; }
+        header { background: linear-gradient(135deg, #007bff, #00c6ff); color: white; text-align: center; padding: 40px 20px; border-radius: 0 0 20px 20px; }
+        section { background: white; padding: 30px; margin: 20px 0; border-radius: 12px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); text-align: center; }
+        h1, h2 { color: #007bff; }
+        .btn { display: inline-block; padding: 12px 25px; background: #007bff; color: white; text-decoration: none; border-radius: 8px; font-weight: bold; transition: 0.3s; }
+        .btn:hover { background: #0056b3; }
+        .cities-container { text-align: center; background: #f8f9fa; padding: 20px; border-radius: 10px; }
+        .cities-container ul { columns: 3; list-style: none; padding: 0; }
+        .cities-container li { margin: 5px 0; font-weight: bold; color: #333; }
+        .endpoints-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; text-align: left; }
+        .endpoint-card { background: #f8f9fa; padding: 20px; border-radius: 10px; box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); width: 45%; }
+        .endpoint-card strong { color: #007bff; }
+        footer { text-align: center; padding: 15px; background: #007bff; color: white; border-radius: 20px 20px 0 0; margin-top: 30px; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Gov Transparency Hub</h1>
+        <p>Acesso a dados públicos de receitas e despesas governamentais com transparência</p>
+    </header>
+    
+    <div class="container">
+        <section>
+            <h2>Sobre a API</h2>
+            <p>A Gov Transparency Hub fornece acesso a dados detalhados sobre receitas e despesas governamentais, permitindo transparência e controle social.</p>
+        </section>
+        
+        <section>
+            <h2>Principais Endpoints</h2>
+            <div class="endpoints-container">
+                <div class="endpoint-card">
+                    <strong>/revenue/</strong>
+                    <p>Consulta receitas governamentais</p>
+                </div>
+                <div class="endpoint-card">
+                    <strong>/expense/details</strong>
+                    <p>Obtém detalhes sobre despesas</p>
+                </div>
+                <div class="endpoint-card">
+                    <strong>/expense/itens</strong>
+                    <p>Lista itens específicos de despesas</p>
+                </div>
+                <div class="endpoint-card">
+                    <strong>/expense/invoices</strong>
+                    <p>Recupera informações sobre notas fiscais</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="cities-container">
+            <h2>Cidades Suportadas</h2>
+            <ul>
+                <li>Tiradentes</li>
+                <li>São João del-Rei</li>
+                <li>São Tiago</li>
+                <li>Piedade do Rio Grande</li>
+                <li>CBM</li>
+                <li>Itutinga</li>
+                <li>Carrancas</li>
+                <li>Santa Cruz de Minas</li>
+                <li>Ritápolis</li>
+                <li>Prados</li>
+                <li>Resende Costa</li>
+                <li>Nazareno</li>
+                <li>Madre de Deus de Minas</li>
+                <li>Lagoa Dourada</li>
+                <li>Dores de Campos</li>
+                <li>Coronel Xavier Chaves</li>
+                <li>Itumirim</li>
+                <li>Ingaí</li>
+                <li>Santa Bárbara do Tugúrio</li>
+                <li>Desterro de Entre Rios</li>
+                <li>Carandaí</li>
+                <li>Caranaíba</li>
+                <li>Barroso</li>
+                <li>Município Antônio Carlos</li>
+                <li>Alfredo Vasconcelos</li>
+                <li>Santana do Garambéu</li>
+                <li>Luminárias</li>
+                <li>Ijaci</li>
+            </ul>
+        </section>
+        
+        <section>
+            <h2>Documentação</h2>
+            <p>Consulte a documentação completa da API para entender como utilizá-la:</p>
+            <a href="/redoc" class="btn">Ver Documentação</a>
+        </section>
+    </div>
+    
+    <footer>
+        <p>&copy; 2025 Gov Transparency Hub - Todos os direitos reservados</p>
+    </footer>
+</body>
+</html>

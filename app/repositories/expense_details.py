@@ -33,7 +33,7 @@ def get_expense_details(
     filters: dict, pagination_info: dict
 ) -> list[ExpenseDetailsResponseDto]:
     try:
-        expense_detail_query = (
+        expense_detail_query = ( 
             Session.query(ExpenseDetailDBModel)
             .filter_by(**filters)
             .order_by(
